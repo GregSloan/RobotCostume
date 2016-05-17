@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="36.720001"
+   viewBox="0 0 98.777776 10.3632"
+   x="0in"
+   width="350"
+   y="0in"
+   version="1.2"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="svg.pcb.led_bargraph_12_backpack_pcb.svg">
+  <metadata
+     id="metadata169">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs167" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     id="namedview165"
+     showgrid="false"
+     units="px"
+     borderlayer="true"
+     inkscape:zoom="3.2076719"
+     inkscape:cx="10.755464"
+     inkscape:cy="18.36"
+     inkscape:window-x="1592"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="copper1" />
+  <desc
+     id="desc4">
+    <referenceFile>sparkfun-led_led_bargaph_10_pcb.svg</referenceFile>
+  </desc>
+  <g
+     gorn="0.0"
+     id="copper1">
+    <circle
+       gorn="0.0.0"
+       id="connector2pad"
+       connectorname="1"
+       cx="2.5302823"
+       cy="3.8885565"
+       style="fill:none;stroke:#f7bd13;stroke-width:0.25400001"
+       r="0.5334" />
+    <circle
+       gorn="0.0.36"
+       id="connector1pad"
+       connectorname="19"
+       cx="2.6067441"
+       cy="6.1227093"
+       r="0.5334"
+       style="fill:none;stroke:#f7bd13;stroke-width:0.25400001" />
+    <circle
+       gorn="0.0.38"
+       id="connector3pad"
+       connectorname="20"
+       cx="2.5668254"
+       cy="1.5841104"
+       r="0.5334"
+       style="fill:none;stroke:#f7bd13;stroke-width:0.25400001" />
+    <circle
+       gorn="0.0.36"
+       id="connector0pad"
+       connectorname="19"
+       cx="2.6395051"
+       cy="8.1636133"
+       r="0.5334"
+       style="fill:none;stroke:#f7bd13;stroke-width:0.25400001" />
+  </g>
+</svg>

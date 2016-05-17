@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="3.33333in" height="0.411111in"
+     viewBox="0 0 300 37">
+  <path id="connector1pin"
+        fill="none" stroke="black" stroke-width="1"
+        d="M 13.90,30.20
+           C 12.86,30.20 12.01,31.05 12.01,32.10
+             12.01,33.16 12.86,34.01 13.90,34.01
+             14.95,34.01 15.80,33.16 15.80,32.10
+             15.80,31.05 14.95,30.20 13.90,30.20 Z" />
+</svg>
