@@ -28,11 +28,12 @@ const int pot_pin = A3;
 int prev_pot_val = 0;
 int cur_pot_val = 0;
 int count = 0;
-const int refresh_buffer = 10000;
+const int refresh_buffer = 3000;
 int wait_count = 0;
 float change_rate = .05;
 int color_bar_refresh = 500;
 unsigned long color_bar_cycle_time = 0;
+int pulse_dir = 1;
 
 const int button_pin = 2;
 int button_state = 0;
@@ -42,7 +43,7 @@ int last_led = 0;
 int last_color = LED_RED;
 
 int led_selector = 0;
-int led_mode_count = 2;
+int led_mode_count = 3;
 
 void setup() {
   Serial.begin(9600);
@@ -61,6 +62,50 @@ void setup() {
   bar.writeDisplay();
   delay(2000);
 }
+
+
+void solid_pulse(){
+  int pulse_color = 0;
+  if (last_color==LED_RED) pulse_color=LED_GREEN;
+  if (last_color==LED_YELLOW) pulse_color=LED_RED;
+  if (last_color==LED_GREEN) pulse_color=LED_YELLOW;
+  
+ 
+  if (last_led == 0){
+    pulse_dir = 1;    
+    if (last_color == LED_RED) {
+      last_color = LED_YELLOW;
+      pulse_color = LED_RED;
+    }
+    else if (last_color == LED_YELLOW){
+      last_color = LED_GREEN;
+      pulse_color = LED_YELLOW;
+    }
+    else {
+      last_color = LED_RED;
+      pulse_color = LED_GREEN;
+    }
+
+    
+  }
+  else if (last_led == 23){
+    pulse_dir = -1;
+  }
+
+
+  for (int i=0; i < 24; i++){
+    bar.setBar(i,last_color);
+    
+  }
+  bar.setBar(last_led,pulse_color);
+  bar.writeDisplay();
+  delay(50);
+  bar.setBar(last_led,last_color);
+  bar.writeDisplay();
+  last_led+=pulse_dir;
+}
+
+
 
 void color_bars(){
   unsigned long current_time = millis();
@@ -162,6 +207,7 @@ void loop() {
 else if (wait_count == refresh_buffer) {
   if (led_selector == 0) cylon();
   else if (led_selector == 1) color_bars();
+  else if (led_selector == 2) solid_pulse();
   /*
  for (uint8_t b=0; b<24; b++) {
    bar.setBar(b, LED_RED);
