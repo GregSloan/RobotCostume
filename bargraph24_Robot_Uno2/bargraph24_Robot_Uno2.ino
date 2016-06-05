@@ -24,7 +24,7 @@ const int led_pin = 13; //On-board LED
 //************************************************
 //Sound Effects Buttons Declarations
 //************************************************
-const uint8_t audio_buttons = A1;
+const uint8_t audio_buttons = A2;
 uint8_t audio_button_hold = false;
 unsigned long cycle_time = 0;
 
@@ -34,14 +34,17 @@ unsigned long cycle_time = 0;
 //************************************************
 //LED Star Array Declarations
 //************************************************
-
 const uint8_t star00 = 3;           //pin set 1
 const uint8_t star01 = 4;
 const uint8_t star02 = 5;
+const uint8_t star03 = A1;
+const uint8_t star04 = A0;
 
 const uint8_t star10 = 8;           //pin set 2
 const uint8_t star11 = 9;
 const uint8_t star12 = 10;
+const uint8_t star13 = 11;
+const uint8_t star14 = 12;
 
 unsigned long star_cycle_time = 0;  //Holds millis of last cycle action on the star array
 const uint8_t starCtrl = 6;         //Pin for star pattern selector button
@@ -104,7 +107,11 @@ void star_symmetric_chase() {
     digitalWrite(star00, HIGH);
     digitalWrite(star01, LOW);
     digitalWrite(star02, LOW);
-    digitalWrite(star12, HIGH);
+    digitalWrite(star03, LOW);
+    digitalWrite(star04, LOW);
+    digitalWrite(star14, HIGH);
+    digitalWrite(star13, LOW);
+    digitalWrite(star12, LOW);
     digitalWrite(star11, LOW);
     digitalWrite(star10, LOW);
     star_cycle_time = millis();
@@ -114,22 +121,34 @@ void star_symmetric_chase() {
   if (millis() - star_cycle_time > 200) {
     if (digitalRead(star00) == HIGH) {
       digitalWrite(star00, LOW);
-      digitalWrite(star12, LOW);
+      digitalWrite(star14, LOW);
       digitalWrite(star01, HIGH);
-      digitalWrite(star11, HIGH);
+      digitalWrite(star13, HIGH);
 
     }
     else if (digitalRead(star01) == HIGH) {
       digitalWrite(star01, LOW);
-      digitalWrite(star11, LOW);
+      digitalWrite(star13, LOW);
       digitalWrite(star02, HIGH);
+      digitalWrite(star12, HIGH);
+    }
+    else if (digitalRead(star02) == HIGH) {
+      digitalWrite(star02, LOW);
+      digitalWrite(star12, LOW);
+      digitalWrite(star03, HIGH);
+      digitalWrite(star11, HIGH);
+    }
+    else if (digitalRead(star03) == HIGH) {
+      digitalWrite(star03, LOW);
+      digitalWrite(star11, LOW);
+      digitalWrite(star04, HIGH);
       digitalWrite(star10, HIGH);
     }
     else {
-      digitalWrite(star02, LOW);
+      digitalWrite(star04, LOW);
       digitalWrite(star10, LOW);
       digitalWrite(star00, HIGH);
-      digitalWrite(star12, HIGH);
+      digitalWrite(star14, HIGH);
     }
     star_cycle_time = millis();
   }
@@ -149,9 +168,13 @@ void star_alternate_blink() {
     digitalWrite(star00, HIGH);
     digitalWrite(star01, HIGH);
     digitalWrite(star02, HIGH);
+    digitalWrite(star03, HIGH);
+    digitalWrite(star04, HIGH);
     digitalWrite(star10, LOW);
     digitalWrite(star11, LOW);
     digitalWrite(star12, LOW);
+    digitalWrite(star13, LOW);
+    digitalWrite(star14, LOW);
     star_cycle_time = millis();
     starCtrlInit = false;
   }
@@ -166,9 +189,13 @@ void star_alternate_blink() {
     digitalWrite(star00, leftState);
     digitalWrite(star01, leftState);
     digitalWrite(star02, leftState);
+    digitalWrite(star03, leftState);
+    digitalWrite(star04, leftState);
     digitalWrite(star10, rightState);
     digitalWrite(star11, rightState);
     digitalWrite(star12, rightState);
+    digitalWrite(star13, rightState);
+    digitalWrite(star14, rightState);
 
     star_cycle_time = millis();
 
@@ -301,33 +328,47 @@ void setup() {
   pinMode(star00, OUTPUT);                            //Set all LED output pins for the star array
   pinMode(star01, OUTPUT);
   pinMode(star02, OUTPUT);
+  pinMode(star03, OUTPUT);
+  pinMode(star04, OUTPUT);
   pinMode(star10, OUTPUT);
   pinMode(star11, OUTPUT);
   pinMode(star12, OUTPUT);
+  pinMode(star13, OUTPUT);
+  pinMode(star14, OUTPUT);
 
   //Test pattern for star array
   //All On
   digitalWrite(star00, HIGH);
   digitalWrite(star01, HIGH);
   digitalWrite(star02, HIGH);
+  digitalWrite(star03, HIGH);
+  digitalWrite(star04, HIGH);
   digitalWrite(star10, HIGH);
   digitalWrite(star11, HIGH);
   digitalWrite(star12, HIGH);
+  digitalWrite(star13, HIGH);
+  digitalWrite(star14, HIGH);
 
   delay(500);
   //All Off
   digitalWrite(star00, LOW);
   digitalWrite(star01, LOW);
   digitalWrite(star02, LOW);
+  digitalWrite(star04, LOW);
+  digitalWrite(star03, LOW);
   digitalWrite(star10, LOW);
   digitalWrite(star11, LOW);
   digitalWrite(star12, LOW);
+  digitalWrite(star13, LOW);
+  digitalWrite(star14, LOW);
 
   delay(500);
   //One side on
   digitalWrite(star00, HIGH);
   digitalWrite(star01, HIGH);
   digitalWrite(star02, HIGH);
+  digitalWrite(star03, HIGH);
+  digitalWrite(star04, HIGH);
   star_cycle_time = millis();
 
   //Initialize bargraph on the I2C bus
