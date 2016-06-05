@@ -65,7 +65,7 @@ void handleEvent() {
     
   }
 
-  if (prev_wire_value > 1 and prev_wire_value < 13) {
+  if (prev_wire_value >= 1 and prev_wire_value < 13) {
     int level = prev_wire_value/2;
     if (level == 0) level = 1;
     if (level != prev_level) {

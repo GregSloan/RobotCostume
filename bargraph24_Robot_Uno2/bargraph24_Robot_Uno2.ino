@@ -84,7 +84,7 @@ int bar_mode_count = 3;                           //Total number of available ba
 //Beam break declarations
 //*************************************************
 const int beam_pin = 7;       //Input pin
-uint8_t last_beam_state = 0;  //Previously recorded state
+uint8_t last_beam_state = LOW;  //Previously recorded state
 //*************************************************
 
 
