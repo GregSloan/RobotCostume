@@ -398,8 +398,10 @@ void loop() {
     audio_button_hold = true;
     }    
   }
-  else {
+  else if (audio_button_average > 800)
+  {
     audio_button_hold = false;
+  }
   }
   
   //****************************************
