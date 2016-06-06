@@ -91,10 +91,41 @@ uint8_t last_beam_state = 0;  //Previously recorded state
 //*************************************************
 
 
-
 //!!!!!!!!!!!!!!!!!!!!!!!
 //Begin Star Mode Methods
 //!!!!!!!!!!!!!!!!!!!!!!!
+
+//***************************************
+//star_random_flash
+//Randomly turn LEDs on and off
+//Selector Index: 2
+//***************************************
+void star_random_flash() {
+  uint8_t all_LEDs[] = {star00, star01, star02, star03, star04, star10, star11, star12, star13, star13};
+  if (starCtrlInit) {
+    randomSeed(millis());
+    starCtrlInit = false;
+    star_cycle_time = millis();
+    for (int led = 0; led < sizeof(all_LEDs)/sizeof(uint8_t); led++) {
+      random_led_state(led);
+    }
+  }
+  
+  if (millis() - star_cycle_time > 500) {
+    for (int led = 0; led < (sizeof(all_LEDs)/sizeof(uint8_t)); led++) {
+      random_led_state(led);
+    }
+  }
+}
+//****************
+//Utility funciton to randomly set an LED state
+//****************
+void random_led_state(uint8_t pin) {
+  long rNum = random(100);
+  if (rNum < 50) digitalWrite(pin, LOW);
+  else digitalWrite(pin, HIGH);
+  
+}
 
 //***************************************
 //star_symmetric_chase
