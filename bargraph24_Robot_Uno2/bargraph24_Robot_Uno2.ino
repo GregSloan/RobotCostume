@@ -353,11 +353,11 @@ void loop() {
   
   audio_button_average /= 10;
 
-  if (millis() - cycle_time > 1000){
+  /*if (millis() - cycle_time > 1000){
   Serial.println(audio_button_average);
   Serial.println(audio_button_hold);
   cycle_time = millis();
-  }
+  }*/
   if (audio_button_average < 50) {
     if (audio_button_hold == false){
     Wire.beginTransmission(0x8);
@@ -402,7 +402,7 @@ void loop() {
   {
     audio_button_hold = false;
   }
-  }
+  
   
   //****************************************
 
@@ -412,9 +412,10 @@ void loop() {
   //***************************************
   int beam_state = digitalRead(beam_pin);
 
-  if (beam_state == LOW) {
+   if (beam_state == LOW) {
     digitalWrite(led_pin, HIGH);      //Debug, turn on on-borad LED when beam is broken
     if (last_beam_state == HIGH) {
+      Serial.println("Sending beam break trigger");
       //Transmit 13 over I2C to Wave shield at 0x8
       Wire.beginTransmission(0x8);
       Wire.write(13);
