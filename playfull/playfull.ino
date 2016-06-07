@@ -60,12 +60,13 @@ void handleEvent() {
   event_flag = false;
   
   if (prev_wire_value == 13) {
+    Serial.println("Playing TYFTC");
     strcpy_P(buffer, (char*)pgm_read_word(&(string_table[0])));
     playcomplete(buffer);
     
   }
 
-  if (prev_wire_value > 1 and prev_wire_value < 13) {
+  if (prev_wire_value >= 1 and prev_wire_value < 13) {
     int level = prev_wire_value/2;
     if (level == 0) level = 1;
     if (level != prev_level) {
@@ -77,7 +78,6 @@ void handleEvent() {
 }
 
 if (prev_wire_value > 13 && prev_wire_value < 18){
-    Serial.println((char*)pgm_read_word(&(string_table[prev_wire_value-7])));
     strcpy_P(buffer, (char*)pgm_read_word(&(string_table[prev_wire_value-7])));
     playcomplete(buffer);
   }
