@@ -24,7 +24,7 @@ const int led_pin = 13; //On-board LED
 //************************************************
 //Sound Effects Buttons Declarations
 //************************************************
-const uint8_t audio_buttons = A2;
+uint8_t audio_buttons = A2;
 uint8_t audio_button_hold = false;
 unsigned long cycle_time = 0;
 
@@ -34,11 +34,11 @@ unsigned long cycle_time = 0;
 //************************************************
 //LED Star Array Declarations
 //************************************************
-const uint8_t star00 = 3;           //pin set 1
-const uint8_t star01 = 4;
-const uint8_t star02 = 5;
-const uint8_t star03 = A1;
-const uint8_t star04 = A0;
+const uint8_t star00 = A1;           //pin set 1
+const uint8_t star01 = A0;
+const uint8_t star02 = 3;
+const uint8_t star03 = 4;
+const uint8_t star04 = 5;
 
 const uint8_t star10 = 8;           //pin set 2
 const uint8_t star11 = 9;
@@ -54,7 +54,7 @@ uint8_t starCtrlPrevState = 0;      //To hold previously recorede state of the b
 bool starCtrlInit = true;           //Flag for whether the star pattern should be initialized this cycle
 
 uint8_t star_selector = 1;          //Currently selected pattern
-uint8_t star_mode_count = 2;        //Total number of defined patterns
+uint8_t star_mode_count = 3;        //Total number of defined patterns
 //*************************************************
 
 
@@ -101,19 +101,21 @@ uint8_t last_beam_state = 0;  //Previously recorded state
 //Selector Index: 2
 //***************************************
 void star_random_flash() {
-  uint8_t all_LEDs[] = {star00, star01, star02, star03, star04, star10, star11, star12, star13, star13};
+  uint8_t all_LEDs[] = {star00, star01, star02, star03, star04, star10, star11, star12, star13, star14};
   if (starCtrlInit) {
+    Serial.println(sizeof(all_LEDs)/sizeof(uint8_t));
     randomSeed(millis());
     starCtrlInit = false;
     star_cycle_time = millis();
-    for (int led = 0; led < sizeof(all_LEDs)/sizeof(uint8_t); led++) {
-      random_led_state(led);
+    for (int led = 0; led < (sizeof(all_LEDs)/sizeof(uint8_t)); led++) {
+      random_led_state(all_LEDs[led]);
     }
   }
   
-  if (millis() - star_cycle_time > 500) {
+  if (millis() - star_cycle_time > 300) {
     for (int led = 0; led < (sizeof(all_LEDs)/sizeof(uint8_t)); led++) {
-      random_led_state(led);
+      random_led_state(all_LEDs[led]);
+      star_cycle_time = millis();
     }
   }
 }
@@ -440,7 +442,7 @@ void loop() {
     audio_button_hold = true;
     }
   }
-  else if ((75 < audio_button_average) && (audio_button_average < 100) ) {
+  else if ((65 < audio_button_average) && (audio_button_average < 100) ) {
     if (audio_button_hold == false){
     Wire.beginTransmission(0x8);
     Wire.write(15);
@@ -489,6 +491,7 @@ void loop() {
       Wire.beginTransmission(0x8);
       Wire.write(13);
       Wire.endTransmission();
+      Serial.println("Beam broken");
 
     }
     last_beam_state = LOW;
@@ -601,6 +604,7 @@ void loop() {
   //*************************************************
   if (star_selector == 0) star_alternate_blink();
   if (star_selector == 1) star_symmetric_chase();
+  if (star_selector == 2) star_random_flash();
 
   //Select star pattern with button press  
   starCtrlState = digitalRead(starCtrl);
